@@ -7,7 +7,8 @@ describe("lib.component.ComponentGroup", () => {
     state = {
       mounted: 0,
       initialized: 0,
-      unmounted: 0
+      unmounted: 0,
+      ready: 0
     };
 
     describe() {
@@ -20,6 +21,10 @@ describe("lib.component.ComponentGroup", () => {
 
     onUnmount() {
       this.state.unmounted += 1;
+    }
+
+    async onReady() {
+      this.state.ready += 1;
     }
 
     async onInit() {
@@ -61,45 +66,67 @@ describe("lib.component.ComponentGroup", () => {
     });
 
     it("should mount all children properly", async () => {
-      expect.assertions(group.components().length * 3 * 2);
+      expect.assertions(group.components().length * 4 * 2);
 
       group.components().map(c => expect(c.state.mounted).toBe(0));
       group.components().map(c => expect(c.state.initialized).toBe(0));
       group.components().map(c => expect(c.state.unmounted).toBe(0));
+      group.components().map(c => expect(c.state.ready).toBe(0));
 
       group.onMount();
 
       group.components().map(c => expect(c.state.mounted).toBe(1));
       group.components().map(c => expect(c.state.initialized).toBe(0));
       group.components().map(c => expect(c.state.unmounted).toBe(0));
+      group.components().map(c => expect(c.state.ready).toBe(0));
     });
 
     it("should initialize all children properly", async () => {
-      expect.assertions(group.components().length * 3 * 2);
+      expect.assertions(group.components().length * 4 * 2);
 
       group.components().map(c => expect(c.state.mounted).toBe(0));
       group.components().map(c => expect(c.state.initialized).toBe(0));
       group.components().map(c => expect(c.state.unmounted).toBe(0));
+      group.components().map(c => expect(c.state.ready).toBe(0));
 
       group.onInit();
 
       group.components().map(c => expect(c.state.mounted).toBe(0));
       group.components().map(c => expect(c.state.initialized).toBe(1));
       group.components().map(c => expect(c.state.unmounted).toBe(0));
+      group.components().map(c => expect(c.state.ready).toBe(0));
     });
 
     it("should unmount all children properly", async () => {
-      expect.assertions(group.components().length * 3 * 2);
+      expect.assertions(group.components().length * 4 * 2);
 
       group.components().map(c => expect(c.state.mounted).toBe(0));
       group.components().map(c => expect(c.state.initialized).toBe(0));
       group.components().map(c => expect(c.state.unmounted).toBe(0));
+      group.components().map(c => expect(c.state.ready).toBe(0));
 
       group.onUnmount();
 
       group.components().map(c => expect(c.state.mounted).toBe(0));
       group.components().map(c => expect(c.state.initialized).toBe(0));
       group.components().map(c => expect(c.state.unmounted).toBe(1));
+      group.components().map(c => expect(c.state.ready).toBe(0));
+    });
+
+    it("should notify ready to all children properly", async () => {
+      expect.assertions(group.components().length * 4 * 2);
+
+      group.components().map(c => expect(c.state.mounted).toBe(0));
+      group.components().map(c => expect(c.state.initialized).toBe(0));
+      group.components().map(c => expect(c.state.unmounted).toBe(0));
+      group.components().map(c => expect(c.state.ready).toBe(0));
+
+      await group.onReady();
+
+      group.components().map(c => expect(c.state.mounted).toBe(0));
+      group.components().map(c => expect(c.state.initialized).toBe(0));
+      group.components().map(c => expect(c.state.unmounted).toBe(0));
+      group.components().map(c => expect(c.state.ready).toBe(1));
     });
   });
 });

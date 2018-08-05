@@ -7,10 +7,6 @@ export default abstract class BaseServer extends ComponentGroup {
     app: Express.Application;
     constructor(options: BaseServerOptions);
     /**
-     * Handles post-listening routines, such as startup jobs.
-     */
-    abstract onReady(): Promise<void>;
-    /**
      * Starts listening in configured port.
      */
     abstract listen(): Promise<BaseServerOptions>;
