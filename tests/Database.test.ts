@@ -2,25 +2,59 @@ import { Database, DatabaseDescription, DatabaseOptions } from "../lib";
 
 describe("lib.Database", () => {
   class TestDatabase extends Database {
+    state = {
+      mounted: 0,
+      unmounted: 0,
+      connected: 0,
+      disconnected: 0
+    };
+
+    onMount() {
+      this.state.mounted += 1;
+    }
+    onUnmount() {
+      this.state.unmounted += 1;
+      super.onUnmount();
+    }
     async connect(): Promise<DatabaseOptions> {
+      this.state.connected += 1;
       return this.options;
     }
-    async disconnect(): Promise<void> {}
-    describe(): DatabaseDescription {
-      return {
-        name: "TestDatabase"
-      };
+    async disconnect(): Promise<void> {
+      this.state.disconnected += 1;
     }
-    onMount() {}
-    onUnmount() {}
-    async onInit() {}
-    async onReady() {}
   }
 
   it("should instantiate a TestService properly", async () => {
-    const service = new TestDatabase({});
-    expect(service).toHaveProperty("options");
-    expect(service).toHaveProperty("logger");
-    expect(service.describe()).toHaveProperty("name", "TestDatabase");
+    expect.assertions(17);
+
+    const db = new TestDatabase({});
+    expect(db.describe()).toHaveProperty("name", "Database");
+
+    expect(db.state.mounted).toBe(0);
+    expect(db.state.unmounted).toBe(0);
+    expect(db.state.connected).toBe(0);
+    expect(db.state.disconnected).toBe(0);
+
+    db.onMount();
+
+    expect(db.state.mounted).toBe(1);
+    expect(db.state.unmounted).toBe(0);
+    expect(db.state.connected).toBe(0);
+    expect(db.state.disconnected).toBe(0);
+
+    await db.onInit();
+
+    expect(db.state.mounted).toBe(1);
+    expect(db.state.unmounted).toBe(0);
+    expect(db.state.connected).toBe(1);
+    expect(db.state.disconnected).toBe(0);
+
+    db.onUnmount();
+
+    expect(db.state.mounted).toBe(1);
+    expect(db.state.unmounted).toBe(1);
+    expect(db.state.connected).toBe(1);
+    expect(db.state.disconnected).toBe(1);
   });
 });

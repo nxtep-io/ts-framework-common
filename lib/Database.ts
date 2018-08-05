@@ -17,22 +17,48 @@ export default abstract class Database implements Component {
   }
 
   /**
+   * Describes the database instance for the framework.
+   */
+  public describe() {
+    return { name: this.options.name || 'Database' };
+  }
+
+  /**
+   * Handles the database unmounting routines and disconnect.
+   */
+  public onUnmount() {
+    this.disconnect();
+  };
+
+  /**
+   * Handles the database initialization routine, connecting to remote server.
+   */
+  public async onInit() {
+    await this.connect();
+  }
+
+  /**
    * Connects the current database.
    */
-  abstract connect(): Promise<DatabaseOptions>;
+  public abstract connect(): Promise<DatabaseOptions>;
 
   /**
    * Disconnects the current database.
    */
-  abstract disconnect(): Promise<void>;
+  public abstract disconnect(): Promise<void>;
 
-  abstract describe(): DatabaseDescription;
+  /**
+   * Mounts the database, registering the models and query builders.
+   * 
+   * @param server The base server instance.
+   */
+  public abstract onMount(server: BaseServer): void;
 
-  abstract onMount(server: BaseServer): void;
-
-  abstract onUnmount(server: BaseServer): void;
-
-  abstract async onInit(server: BaseServer): Promise<void>;
-
-  abstract async onReady(server: BaseServer): Promise<void>;
+  /**
+   * Handles server post-initialization, not so relevant for a Database component that will be already initialized.
+   * 
+   * @param server The base server instance.
+   */
+  public async onReady(server: BaseServer): Promise<void> {
+  };
 }
