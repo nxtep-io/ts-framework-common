@@ -9,9 +9,11 @@ export interface DatabaseDescription extends ComponentDescription {
 }
 
 export default abstract class Database implements Component {
+  logger: Logger;
   type: ComponentType.DATABASE;
 
   constructor(public options: DatabaseOptions) {
+    this.logger = options.logger || Logger.getInstance();
   }
 
   /**

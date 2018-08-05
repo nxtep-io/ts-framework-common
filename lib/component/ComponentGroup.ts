@@ -5,6 +5,7 @@ import { Component, ComponentDescription, ComponentType } from './Component';
 export interface ComponentGroupOptions {
   name?: string;
   logger?: Logger;
+  children?: Component[];
 }
 
 export interface ComponentGroupDescription extends ComponentDescription {
@@ -18,12 +19,13 @@ export interface ComponentGroupDescription extends ComponentDescription {
  * A higher order component to handle a group of children.
  */
 export default abstract class ComponentGroup implements Component {
-  children: Component[];
   logger: Logger;
+  children: Component[];
   type: ComponentType.GROUP;
 
   constructor(public options: ComponentGroupOptions) {
     this.logger = options.logger || Logger.getInstance();
+    this.children = options.children || [];
   }
 
   /**
@@ -32,7 +34,7 @@ export default abstract class ComponentGroup implements Component {
   public describe(): ComponentGroupDescription {
     const map = this.children
       .map((component: Component) => {
-        return { [component.constructor.prototype.name]: component };
+        return { [component.constructor.name]: component };
       })
       .reduce((aggr, next) => {
         return { ...aggr, ...next };

@@ -11,12 +11,16 @@ export interface ServiceDescription extends ComponentDescription {
 }
 
 export default abstract class Service implements Component {
+  logger: Logger;
   type: ComponentType.SERVICE;
 
   constructor(public options: ServiceOptions) {
+    this.logger = options.logger || Logger.getInstance();
   }
 
-  public abstract describe(): ServiceDescription;
+  public describe(): ServiceDescription {
+    return { name: this.options.name }
+  }
 
   public abstract onMount(server: BaseServer): void;
 

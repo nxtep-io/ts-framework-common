@@ -1,5 +1,4 @@
 import * as Express from 'express';
-import { listenerCount } from 'cluster';
 import { Component } from './component/Component';
 import ComponentGroup, { ComponentGroupOptions } from './component/ComponentGroup';
 

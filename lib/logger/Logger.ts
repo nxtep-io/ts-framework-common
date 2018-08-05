@@ -40,9 +40,14 @@ export default class SimpleLogger extends winston.Logger {
     super(opt);
   }
 
-  public static getInstance(): winston.LoggerInstance {
-    if (!this.instance) {
-      this.instance = new SimpleLogger();
+  public static getInstance(options?: SimpleLoggerOptions): winston.LoggerInstance {
+    if (!this.instance || options !== undefined) {
+      const logger = new SimpleLogger(options);
+
+      if (!this.instance) {
+        this.instance = logger;
+      }
+      return logger;
     }
     return this.instance;
   }
