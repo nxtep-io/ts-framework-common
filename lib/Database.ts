@@ -1,6 +1,6 @@
 import Logger from './logger';
-import { Component, ComponentOptions, ComponentDescription } from 'Component';
-import { Server } from './Server';
+import BaseServer from './BaseServer';
+import { Component, ComponentOptions, ComponentDescription, ComponentType } from './component/Component';
 
 export interface DatabaseOptions extends ComponentOptions {
 }
@@ -9,18 +9,28 @@ export interface DatabaseDescription extends ComponentDescription {
 }
 
 export default abstract class Database implements Component {
-  constructor(options: ComponentOptions) {
+  type: ComponentType.DATABASE;
+
+  constructor(public options: DatabaseOptions) {
   }
+
+  /**
+   * Connects the current database.
+   */
+  abstract connect(): Promise<DatabaseOptions>;
+
+  /**
+   * Disconnects the current database.
+   */
+  abstract disconnect(): Promise<void>;
 
   abstract describe(): DatabaseDescription;
 
-  abstract connect(): Promise<DatabaseOptions>;
+  abstract onMount(server: BaseServer): void;
 
-  abstract disconnect(): Promise<void>;
+  abstract onUnmount(server: BaseServer): void;
 
-  abstract isReady(): boolean;
+  abstract async onInit(server: BaseServer): Promise<void>;
 
-  abstract async onMount(server: Server): Promise<void>;
-
-  abstract async onUnmount(server: Server): Promise<void>;
+  abstract async onReady(server: BaseServer): Promise<void>;
 }

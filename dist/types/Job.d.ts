@@ -1,12 +1,16 @@
-import { Server } from './Server';
-import { Component, ComponentOptions, ComponentDescription } from './Component';
+import BaseServer from './BaseServer';
+import { Component, ComponentOptions, ComponentDescription, ComponentType } from './component/Component';
 export interface JobOptions extends ComponentOptions {
 }
 export interface JobDescription extends ComponentDescription {
 }
 export default abstract class Job implements Component {
-    onMount(server: Server): Promise<void>;
-    onUnmount(server: Server): Promise<void>;
+    options: JobOptions;
+    type: ComponentType.JOB;
+    constructor(options: JobOptions);
+    onMount(server: BaseServer): void;
+    onUnmount(server: BaseServer): void;
+    onInit(server: BaseServer): Promise<void>;
     abstract describe(): JobDescription;
-    abstract run(server: Server): Promise<void>;
+    abstract run(server: BaseServer): Promise<void>;
 }
