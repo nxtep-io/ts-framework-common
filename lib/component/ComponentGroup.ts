@@ -38,7 +38,7 @@ export default abstract class ComponentGroup implements Component {
       })
       .reduce((aggr, next) => {
         return { ...aggr, ...next };
-      },      {});
+      }, {});
 
     return {
       name: this.options.name,
@@ -64,6 +64,17 @@ export default abstract class ComponentGroup implements Component {
     this.logger.info(`Initializing ${this.options.name} child components`, this.children.map(c => c.describe().name));
     for (let i = 0; i < this.children.length; i += 1) {
       await this.children[i].onInit(server);
+    }
+  }
+
+  /**
+   * Handles post initialization routines.
+   */
+  public async onReady(server: BaseServer) {
+    for (let i = 0; i < this.children.length; i += 1) {
+      if (this.children[i].onReady) {
+        await this.children[i].onReady(server);
+      }
     }
   }
 

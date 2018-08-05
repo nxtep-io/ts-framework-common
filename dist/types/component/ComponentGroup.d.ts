@@ -34,6 +34,10 @@ export default abstract class ComponentGroup implements Component {
      */
     onInit(server: BaseServer): Promise<void>;
     /**
+     * Handles post initialization routines.
+     */
+    onReady(server: BaseServer): Promise<void>;
+    /**
      * Handles post unmount routines.
      */
     onUnmount(server: BaseServer): void;

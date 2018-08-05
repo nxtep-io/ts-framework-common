@@ -34,7 +34,7 @@ export interface Component {
   onMount(server: BaseServer): void;
 
   /**
-   * Handles pre inistialization routines.
+   * Handles pre initialization routines.
    */
   onInit(server: BaseServer): Promise<void>;
 
@@ -42,4 +42,9 @@ export interface Component {
    * Handles post unmount routines.
    */
   onUnmount(server: BaseServer): void;
+
+  /**
+   * Handles post initialization routines.
+   */
+  onReady?(server: BaseServer): Promise<void>;
 }
