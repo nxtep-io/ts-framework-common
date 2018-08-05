@@ -15,5 +15,5 @@ export default class SimpleLogger extends winston.Logger {
     protected static instance: SimpleLogger;
     static DEFAULT_TRANSPORTS: winston.TransportInstance[];
     constructor(options?: SimpleLoggerOptions);
-    static getInstance(): winston.LoggerInstance;
+    static getInstance(options?: SimpleLoggerOptions): winston.LoggerInstance;
 }

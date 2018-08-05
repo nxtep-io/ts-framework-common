@@ -8,9 +8,10 @@ export interface ServiceDescription extends ComponentDescription {
 }
 export default abstract class Service implements Component {
     options: ServiceOptions;
+    logger: Logger;
     type: ComponentType.SERVICE;
     constructor(options: ServiceOptions);
-    abstract describe(): ServiceDescription;
+    describe(): ServiceDescription;
     abstract onMount(server: BaseServer): void;
     abstract onUnmount(server: BaseServer): void;
     abstract onInit(server: BaseServer): Promise<void>;

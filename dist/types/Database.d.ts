@@ -1,3 +1,4 @@
+import Logger from './logger';
 import BaseServer from './BaseServer';
 import { Component, ComponentOptions, ComponentDescription, ComponentType } from './component/Component';
 export interface DatabaseOptions extends ComponentOptions {
@@ -6,6 +7,7 @@ export interface DatabaseDescription extends ComponentDescription {
 }
 export default abstract class Database implements Component {
     options: DatabaseOptions;
+    logger: Logger;
     type: ComponentType.DATABASE;
     constructor(options: DatabaseOptions);
     /**

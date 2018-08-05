@@ -4,6 +4,7 @@ import { Component, ComponentDescription, ComponentType } from './Component';
 export interface ComponentGroupOptions {
     name?: string;
     logger?: Logger;
+    children?: Component[];
 }
 export interface ComponentGroupDescription extends ComponentDescription {
     name: string;
@@ -16,8 +17,8 @@ export interface ComponentGroupDescription extends ComponentDescription {
  */
 export default abstract class ComponentGroup implements Component {
     options: ComponentGroupOptions;
-    children: Component[];
     logger: Logger;
+    children: Component[];
     type: ComponentType.GROUP;
     constructor(options: ComponentGroupOptions);
     /**
