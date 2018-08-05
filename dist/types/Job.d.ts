@@ -3,7 +3,7 @@ import { Component, ComponentOptions, ComponentType } from './component/Componen
 import { Logger } from './logger';
 import { ComponentDescription } from './component';
 export interface JobOptions extends ComponentOptions {
-    name: string;
+    name?: string;
 }
 export interface JobDescription extends ComponentDescription {
     name?: string;

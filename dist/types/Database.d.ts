@@ -1,9 +1,9 @@
 import Logger from './logger';
 import BaseServer from './BaseServer';
 import { Component, ComponentOptions, ComponentType } from './component/Component';
-import { ComponentDescription } from 'component';
+import { ComponentDescription } from './component';
 export interface DatabaseOptions extends ComponentOptions {
-    name: string;
+    name?: string;
 }
 export interface DatabaseDescription extends ComponentDescription {
     name: string;

@@ -3,7 +3,7 @@ import BaseServer from './BaseServer';
 import { Component, ComponentOptions, ComponentType } from './component/Component';
 import { ComponentDescription } from './component';
 export interface ServiceOptions extends ComponentOptions {
-    name: string;
+    name?: string;
     logger?: Logger;
 }
 export interface ServiceDescription extends ComponentDescription {
