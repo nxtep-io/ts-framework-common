@@ -16,6 +16,12 @@ describe("lib.Database", () => {
       this.state.unmounted += 1;
       super.onUnmount();
     }
+    entities() {
+      return {};
+    }
+    isConnected() {
+      return false;
+    }
     async connect(): Promise<DatabaseOptions> {
       this.state.connected += 1;
       return this.options;
@@ -29,7 +35,7 @@ describe("lib.Database", () => {
     expect.assertions(17);
 
     const db = new TestDatabase({});
-    expect(db.describe()).toHaveProperty("name", "Database");
+    expect(db.describe()).toHaveProperty("name", "TestDatabase");
 
     expect(db.state.mounted).toBe(0);
     expect(db.state.unmounted).toBe(0);

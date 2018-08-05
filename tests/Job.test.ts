@@ -34,7 +34,7 @@ describe("lib.Job", () => {
   it("should initialize a TestJob properly", async () => {
     expect.assertions(13);
 
-    const job = new TestJob({});
+    const job = new TestJob({ name: "Job" });
     expect(job.describe()).toHaveProperty("name", "Job");
 
     expect(job.state.mounted).toBe(0);

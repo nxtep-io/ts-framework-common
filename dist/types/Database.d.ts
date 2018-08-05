@@ -1,9 +1,16 @@
 import Logger from './logger';
 import BaseServer from './BaseServer';
-import { Component, ComponentOptions, ComponentDescription, ComponentType } from './component/Component';
+import { Component, ComponentOptions, ComponentType } from './component/Component';
+import { ComponentDescription } from 'component';
 export interface DatabaseOptions extends ComponentOptions {
+    name: string;
 }
 export interface DatabaseDescription extends ComponentDescription {
+    name: string;
+    status: 'connected' | 'disconnected';
+    context: {
+        [name: string]: any;
+    };
 }
 export default abstract class Database implements Component {
     options: DatabaseOptions;
@@ -15,6 +22,10 @@ export default abstract class Database implements Component {
      */
     describe(): {
         name: string;
+        status: string;
+        context: {
+            [x: string]: any;
+        };
     };
     /**
      * Handles the database unmounting routines and disconnect.
@@ -33,11 +44,21 @@ export default abstract class Database implements Component {
      */
     abstract disconnect(): Promise<void>;
     /**
+     * Checks if is currently connected  to database.
+     */
+    abstract isConnected(): boolean;
+    /**
+     * Gets a map of database entities and its unique names (such as table or collection names).
+     */
+    abstract entities(): {
+        [name: string]: any;
+    };
+    /**
      * Mounts the database, registering the models and query builders.
      *
      * @param server The base server instance.
      */
-    abstract onMount(server: BaseServer): void;
+    onMount(server: BaseServer): void;
     /**
      * Handles server post-initialization, not so relevant for a Database component that will be already initialized.
      *

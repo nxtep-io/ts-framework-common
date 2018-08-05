@@ -15,7 +15,7 @@ describe("lib.Service", () => {
   }
 
   it("should instantiate a TestService properly", async () => {
-    const service = new TestService({});
+    const service = new TestService({ name: "TestService" });
     expect(service).toHaveProperty("options");
     expect(service).toHaveProperty("logger");
     expect(service.describe()).toHaveProperty("name", "TestService");

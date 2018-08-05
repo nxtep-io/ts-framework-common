@@ -1,6 +1,7 @@
 import Logger from '../logger';
 import BaseServer from '../BaseServer';
-import { Component, ComponentDescription, ComponentType } from './Component';
+import { Component, ComponentType } from './Component';
+import { ComponentDescription } from './ComponentDescription';
 
 export interface ComponentGroupOptions {
   name?: string;
@@ -10,8 +11,8 @@ export interface ComponentGroupOptions {
 
 export interface ComponentGroupDescription extends ComponentDescription {
   name: string;
-  components: {
-    [key: string]: string | ComponentDescription;
+  context: {
+    [key: string]: Component;
   };
 }
 
@@ -40,10 +41,7 @@ export default abstract class ComponentGroup implements Component {
         return { ...aggr, ...next };
       }, {});
 
-    return {
-      name: this.options.name,
-      components: map,
-    };
+    return { name: this.options.name, context: map };
   }
 
   /**

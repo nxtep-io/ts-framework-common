@@ -51,7 +51,7 @@ describe("lib.component.ComponentGroup", () => {
     // Test group description
     const description = server.describe();
     expect(description).toHaveProperty("name", "TestGroup");
-    expect(description.components).toHaveProperty("TestComponent");
+    expect(description.context).toHaveProperty("TestComponent");
   });
 
   describe("with components", async () => {

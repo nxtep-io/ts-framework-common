@@ -11,6 +11,7 @@ export default abstract class BaseServer extends ComponentGroup {
 
   constructor(public options: BaseServerOptions) {
     super(options);
+    this.options.name = options.name || this.constructor.name;
   }
 
   /**
