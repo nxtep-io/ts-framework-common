@@ -1,4 +1,5 @@
 import Logger from './logger';
+import { Server } from './Server';
 
 export interface ComponentOptions {
   name?: string;
@@ -11,6 +12,18 @@ export interface ComponentDescription {
 }
 
 export interface Component {
-  constructor(options: ComponentOptions);
+  /**
+   * Describes current component.
+   */
   describe(): ComponentDescription;
+
+  /**
+   * Handles post mount routines.
+   */
+  onMount(server: Server): Promise<void>;
+
+  /**
+   * Handles post unmount routines.
+   */
+  onUnmount(server: Server): Promise<void>;
 }

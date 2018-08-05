@@ -1,9 +1,15 @@
 import Logger from './logger';
-import { Component } from 'Component';
-export interface ServiceOptions {
+import { Component, ComponentDescription, ComponentOptions } from 'Component';
+import { Server } from './Server';
+export interface ServiceOptions extends ComponentOptions {
     logger?: Logger;
 }
-export interface Service extends Component {
-    initialize(): Promise<void>;
-    isReady(): boolean;
+export interface ServiceDescription extends ComponentDescription {
+}
+export default abstract class Service implements Component {
+    protected options: ServiceOptions;
+    constructor(options: ServiceOptions);
+    abstract onMount(server: Server): Promise<void>;
+    abstract onUnmount(server: Server): Promise<void>;
+    abstract describe(): ServiceDescription;
 }
