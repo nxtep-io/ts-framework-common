@@ -1,6 +1,5 @@
 {
   "testRegex": "(./tests/.*|\\.(spec))\\.(ts)$",
-  "mapCoverage": true,
   "collectCoverage": true,
   "testEnvironment": "node",
   "coverageDirectory": "./coverage",
