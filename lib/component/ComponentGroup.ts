@@ -35,7 +35,11 @@ export default abstract class ComponentGroup implements Component {
   public describe(): ComponentGroupDescription {
     const map = this.children
       .map((component: Component) => {
-        return { [component.constructor.name]: component };
+        const description = component.describe();
+        return { 
+          [component.constructor.name]: component,
+          ...(description.context || {})
+        };
       })
       .reduce((aggr, next) => {
         return { ...aggr, ...next };
