@@ -21,7 +21,7 @@ export default abstract class ComponentGroup implements Component {
     logger: Logger;
     children: Component[];
     type: ComponentType.GROUP;
-    protected constructor(options: ComponentGroupOptions);
+    constructor(options: ComponentGroupOptions);
     /**
      * Describes current component group.
      */
@@ -29,19 +29,19 @@ export default abstract class ComponentGroup implements Component {
     /**
      * Handles post mount routines.
      */
-    onMount<T extends BaseServer>(server: T): void;
+    onMount(server: BaseServer): void;
     /**
      * Handles pre initialization routines.
      */
-    onInit<T extends BaseServer>(server: T): Promise<void>;
+    onInit(server: BaseServer): Promise<void>;
     /**
      * Handles post initialization routines.
      */
-    onReady<T extends BaseServer>(server: T): Promise<void>;
+    onReady(server: BaseServer): Promise<void>;
     /**
      * Handles post unmount routines.
      */
-    onUnmount<T extends BaseServer>(server: T): void;
+    onUnmount(server: BaseServer): void;
     /**
      * Gets currently registered components.
      */

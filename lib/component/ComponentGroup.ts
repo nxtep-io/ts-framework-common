@@ -24,7 +24,7 @@ export default abstract class ComponentGroup implements Component {
   children: Component[];
   type: ComponentType.GROUP;
 
-  protected constructor(public options: ComponentGroupOptions) {
+  constructor(public options: ComponentGroupOptions) {
     this.logger = options.logger || Logger.getInstance();
     this.children = options.children || [];
   }
@@ -51,7 +51,7 @@ export default abstract class ComponentGroup implements Component {
   /**
    * Handles post mount routines.
    */
-  public onMount<T extends BaseServer>(server: T): void {
+  public onMount(server: BaseServer): void {
     this.logger.info(`Mounting ${this.options.name} components`, this.children.map(c => c.describe().name));
     for (let i = 0; i < this.children.length; i += 1) {
       this.children[i].onMount(server);
@@ -61,7 +61,7 @@ export default abstract class ComponentGroup implements Component {
   /**
    * Handles pre initialization routines.
    */
-  public async onInit<T extends BaseServer>(server: T): Promise<void> {
+  public async onInit(server: BaseServer): Promise<void> {
     this.logger.info(`Initializing ${this.options.name} components`, this.children.map(c => c.describe().name));
     for (let i = 0; i < this.children.length; i += 1) {
       await this.children[i].onInit(server);
@@ -71,7 +71,7 @@ export default abstract class ComponentGroup implements Component {
   /**
    * Handles post initialization routines.
    */
-  public async onReady<T extends BaseServer>(server: T) {
+  public async onReady(server: BaseServer) {
     for (let i = 0; i < this.children.length; i += 1) {
       if (this.children[i].onReady) {
         await this.children[i].onReady(server);
@@ -82,7 +82,7 @@ export default abstract class ComponentGroup implements Component {
   /**
    * Handles post unmount routines.
    */
-  public onUnmount<T extends BaseServer>(server: T): void {
+  public onUnmount(server: BaseServer): void {
     for (let i = 0; i < this.children.length; i += 1) {
       this.children[i].onUnmount(server);
     }

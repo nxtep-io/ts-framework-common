@@ -22,17 +22,17 @@ export interface Component {
     /**
      * Handles post mount routines.
      */
-    onMount<T extends BaseServer>(server: T): void;
+    onMount(server: BaseServer): void;
     /**
      * Handles pre initialization routines.
      */
-    onInit<T extends BaseServer>(server: T): Promise<void>;
+    onInit(server: BaseServer): Promise<void>;
     /**
      * Handles post unmount routines.
      */
-    onUnmount<T extends BaseServer>(server: T): void;
+    onUnmount(server: BaseServer): void;
     /**
      * Handles post initialization routines.
      */
-    onReady?<T extends BaseServer>(server: T): Promise<void>;
+    onReady?(server: BaseServer): Promise<void>;
 }
