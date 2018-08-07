@@ -52,8 +52,7 @@ export default abstract class ComponentGroup implements Component {
    * Handles post mount routines.
    */
   public onMount(server: BaseServer): void {
-    this.logger.info(`Mounting ${this.options.name} child components`, this.children.map(c => c.describe().name));
-
+    this.logger.info(`Mounting ${this.options.name} components`, this.children.map(c => c.describe().name));
     for (let i = 0; i < this.children.length; i += 1) {
       this.children[i].onMount(server);
     }
@@ -63,7 +62,7 @@ export default abstract class ComponentGroup implements Component {
    * Handles pre initialization routines.
    */
   public async onInit(server: BaseServer): Promise<void> {
-    this.logger.info(`Initializing ${this.options.name} child components`, this.children.map(c => c.describe().name));
+    this.logger.info(`Initializing ${this.options.name} components`, this.children.map(c => c.describe().name));
     for (let i = 0; i < this.children.length; i += 1) {
       await this.children[i].onInit(server);
     }
