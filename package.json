@@ -1,6 +1,6 @@
 {
   "name": "ts-framework-common",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A minimalistic web framework for TS",
   "author": "Luis Brito <luis@nxtep.io>",
   "license": "MIT",
