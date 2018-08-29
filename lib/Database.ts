@@ -11,5 +11,5 @@ export interface Database {
   disconnect(): Promise<void>;
 
   isReady(): boolean;
-  
+
 }

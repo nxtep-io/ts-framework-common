@@ -12,38 +12,39 @@ export interface SentryTransportOptions extends Raven.ConstructorOptions {
 
 export interface SimpleLoggerOptions extends winston.LoggerOptions {
   sentry?: SentryTransportOptions;
-  transports?: winston.TransportInstance[];
+  transports?: winston.Logger['transports'];
 }
 
-export default class SimpleLogger extends winston.Logger {
-  protected static instance: SimpleLogger;
+export default class SimpleLogger {
+  protected static instance: winston.Logger;
 
-  static DEFAULT_TRANSPORTS: winston.TransportInstance[] = [
-    new (winston.transports.Console)({
+  static DEFAULT_TRANSPORTS: winston.Logger['transports'] = [
+    new winston.transports.Console({
       // TODO: Get from default configuration layer
       level: process.env.LOG_LEVEL || 'silly',
-      colorize: true,
+      format: winston.format.colorize(),
     }),
   ];
 
-  public constructor(options: SimpleLoggerOptions = {}) {
-    // Prepare default console transport
-    const opt = {
-      transports: options.transports || SimpleLogger.DEFAULT_TRANSPORTS,
-    };
+  private constructor() {}
 
-    // Add sentry if available
-    if (options.sentry) {
-      opt.transports.push(new SentryTransport(options.sentry));
+  public static getInstance(options?: SimpleLoggerOptions): winston.Logger {
+    if (options || !this.instance) {
+      // Prepare default console transport
+      const opt = {
+        transports: options.transports || SimpleLogger.DEFAULT_TRANSPORTS,
+      };
+
+      // Add sentry if available
+      if (options.sentry) {
+        opt.transports.push(new SentryTransport(options.sentry));
+      }
+
+      if (!this.instance) {
+        this.instance = winston.createLogger(opt);
+      }
     }
 
-    super(opt);
-  }
-
-  public static getInstance(): winston.LoggerInstance {
-    if (!this.instance) {
-      this.instance = new SimpleLogger();
-    }
     return this.instance;
   }
 }
