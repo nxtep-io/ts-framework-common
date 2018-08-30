@@ -133,6 +133,10 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-1.2.0.tgz#81a6731ce4df43619e5c8c945383b3e62a89ea86"
 
+"@types/jest@^23.3.1":
+  version "23.3.1"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.1.tgz#a4319aedb071d478e6f407d1c4578ec8156829cf"
+
 "@types/node@*":
   version "10.5.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.2.tgz#f19f05314d5421fe37e74153254201a7bf00a707"
@@ -142,12 +146,6 @@
   resolved "https://registry.yarnpkg.com/@types/raven/-/raven-2.5.1.tgz#62ef0a59e29691945e1f295b62ed199619cbd9b6"
   dependencies:
     "@types/events" "*"
-    "@types/node" "*"
-
-"@types/winston@^2.3.9":
-  version "2.3.9"
-  resolved "https://registry.yarnpkg.com/@types/winston/-/winston-2.3.9.tgz#1ff9f1bb57952fe3d88c1b21c4899ede316a35bc"
-  dependencies:
     "@types/node" "*"
 
 abab@^2.0.0:
