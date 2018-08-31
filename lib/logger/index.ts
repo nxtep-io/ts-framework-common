@@ -18,6 +18,9 @@ export interface SentryTransportOptions extends Raven.ConstructorOptions {
   raven?: Raven.Client;
 }
 
+// Export the winston.Logger type so we don't need to install the winston types on dependants
+export type LoggerInstance = winston.Logger;
+
 export default class SimpleLogger {
   protected static instance: winston.Logger;
 
