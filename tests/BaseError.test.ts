@@ -1,16 +1,46 @@
-import { BaseError } from '../lib';
+import { BaseError } from "../lib";
 
-describe('lib.BaseError', () => {
-  it('should generate a simple base error', async () => {
-    const error = new BaseError('A unit test error', { sample: true });
-    expect(error.message).toMatch(/unit test error/ig);
-    expect(error.stack).toBeDefined();
+describe("lib.error.BaseError", () => {
+  it("should instantiate a BaseError properly", () => {
+    const error = new BaseError("Test");
 
-    const obj = error.toJSON();
-    expect(obj.stack).toBeDefined();
-    expect(obj.message).toMatch(/unit test error/ig);
+    expect(error.message).toMatch(/Test/);
+    expect(error.message).toMatch(new RegExp(error.stackId));
 
-    const json = error.toJSON(true);
-    expect(JSON.parse(json).message).toMatch(/unit test error/ig);
+    const jsonObj = error.toJSON();
+    expect(typeof jsonObj).toBe(typeof {});
+
+    const jsonStr = error.toJSON(true);
+    expect(typeof jsonStr).toBe(typeof "string");
+  });
+
+  describe("without captureStackTrace", async () => {
+    let captureStackTrace;
+
+    beforeEach(async () => {
+      captureStackTrace = Error.captureStackTrace;
+      Error.captureStackTrace = null;
+    });
+
+    afterEach(async () => {
+      Error.captureStackTrace = captureStackTrace;
+      captureStackTrace = null;
+    });
+
+    it("should instantiate properly without captureStackTrace", () => {
+      const error = new BaseError("Test", {
+        test: true
+      });
+
+      expect(error).toHaveProperty("stack");
+      expect(error).toHaveProperty("details", { test: true });
+      expect(error.toObject()).toHaveProperty("details", { test: true });
+
+      const jsonObj = error.toJSON();
+      expect(typeof jsonObj).toBe(typeof {});
+
+      const jsonStr = error.toJSON(true);
+      expect(typeof jsonStr).toBe(typeof "string");
+    });
   });
 });

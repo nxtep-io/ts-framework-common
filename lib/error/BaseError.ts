@@ -25,11 +25,7 @@ export default class BaseError extends Error {
   stackId: string;
   details: BaseErrorDetails;
 
-  /**
-   * @param message The error message
-   * @param details An option details object for error specific information
-   */
-  constructor(message, details: any = {}) {
+  constructor(message, details: any = new BaseErrorDetails()) {
     const stackId = uuid.v4();
     super(`${message} (stackId: ${stackId})`);
     this.stackId = stackId;

@@ -23,11 +23,6 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .env
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 .DS_Store
 .AppleDouble
 .LSOverride
