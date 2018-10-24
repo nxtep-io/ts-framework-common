@@ -33,8 +33,10 @@ export default class SimpleLogger extends winston.Logger {
     };
 
     // Add sentry if available
-    if (options.sentry) {
-      opt.transports.push(new SentryTransport(options.sentry));
+    if (options.sentry || process.env.SENTRY_DNS) {
+      opt.transports.push(new SentryTransport(options.sentry || {
+        dsn: process.env.SENTRY_DNS,
+      }));
     }
 
     super(opt);
