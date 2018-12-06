@@ -1,8 +1,6 @@
 import * as Sentry from '@sentry/node';
-import * as Package from 'pjson';
 import * as Transport from 'winston-transport';
 import { BaseError } from '../error';
-import { exceptions } from '../../node_modules/winston';
 
 const winstonLevelToSentryLevel = {
   silly: 'debug',
@@ -47,9 +45,10 @@ export default class SentryTransport extends Transport {
       ...options,
     };
 
-    Sentry.init({ 
-      logLevel: 2, 
-      ...this.options });
+    Sentry.init({
+      logLevel: 2,
+      ...this.options
+    });
   }
 
   /**
@@ -75,7 +74,7 @@ export default class SentryTransport extends Transport {
       event.tags.stackId = info.stackId;
       event.extra.stack = info.stack;
       eventId = Sentry.captureEvent(event);
-    } else if(info instanceof Error) {
+    } else if (info instanceof Error) {
       eventId = Sentry.captureException(info);
     } else {
       event.message = message;
