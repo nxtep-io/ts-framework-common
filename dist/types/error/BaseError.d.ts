@@ -13,6 +13,7 @@ export declare class BaseErrorDetails {
 export default class BaseError extends Error {
     stackId: string;
     details: BaseErrorDetails;
+    originalMessage: string;
     constructor(message: any, details?: any);
     /**
      * Generates POJO for this error instance.

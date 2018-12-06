@@ -1,21 +1,22 @@
-import * as Raven from 'raven';
 import * as winston from 'winston';
-import * as Transport from 'winston-transport';
-import * as SentryTransport from 'winston-raven-sentry';
+import * as Git from "git-rev-sync";
 import WinstonElasticsearch, { ElasticsearchTransportOptions } from 'winston-elasticsearch';
+import * as Transport from 'winston-transport';
+import SentryTransport, { SentryTransportOptions } from './Sentry';
+
+/* Generates Sentry release version based on Git repository, if available */
+const SOURCE_CODE_RELEASE = process.env.SOURCE_CODE_RELEASE
+  ? process.env.SENTRY_RELEASE
+  : (() => {
+      try {
+        return Git.long();
+      } catch (error) {}
+    })();
 
 export interface SimpleLoggerOptions extends winston.LoggerOptions {
   sentry?: SentryTransportOptions;
   elasticsearch?: ElasticsearchTransportOptions;
   transports?: Transport[];
-}
-
-export interface SentryTransportOptions extends Raven.ConstructorOptions {
-  dsn: string;
-  level?: string;
-  levelsMap?: any;
-  install?: boolean;
-  raven?: Raven.Client;
 }
 
 // Export the winston.Logger type so we don't need to install the winston types on dependants
@@ -30,7 +31,10 @@ export default class SimpleLogger {
   static DEFAULT_TRANSPORTS: winston.Logger['transports'] = [
     new winston.transports.Console({
       level: process.env.LOG_LEVEL || 'silly',
-      format: winston.format.colorize(),
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple()
+      ),
     }),
   ];
 
@@ -40,7 +44,7 @@ export default class SimpleLogger {
    * @deprecated
    */
   private constructor() {
-    throw new Error('Simple logger constructor is deprecated, use SimpleLogger.initialize() instead');
+    throw new Error('Simple logger constructor is deprecated in Winston 3, use Logger.initialize() instead');
   }
 
   /**
@@ -68,7 +72,12 @@ export default class SimpleLogger {
 
     // Add sentry if available
     if (options.sentry) {
-      opt.transports.push(new SentryTransport(options.sentry));
+      opt.transports.push(new SentryTransport({
+        release: SOURCE_CODE_RELEASE,
+        level: options.level,
+        environment: process.env.NODE_ENV || 'development',
+        ...options.sentry,
+      }));
     }
 
     // Add elasticsearch if available

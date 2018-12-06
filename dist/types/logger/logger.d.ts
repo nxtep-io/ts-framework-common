@@ -1,18 +1,11 @@
-import * as Raven from 'raven';
 import * as winston from 'winston';
-import * as Transport from 'winston-transport';
 import { ElasticsearchTransportOptions } from 'winston-elasticsearch';
+import * as Transport from 'winston-transport';
+import { SentryTransportOptions } from './Sentry';
 export interface SimpleLoggerOptions extends winston.LoggerOptions {
     sentry?: SentryTransportOptions;
     elasticsearch?: ElasticsearchTransportOptions;
     transports?: Transport[];
-}
-export interface SentryTransportOptions extends Raven.ConstructorOptions {
-    dsn: string;
-    level?: string;
-    levelsMap?: any;
-    install?: boolean;
-    raven?: Raven.Client;
 }
 export declare type LoggerInstance = winston.Logger;
 export default class SimpleLogger {
