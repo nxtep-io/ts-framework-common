@@ -1,10 +1,8 @@
 import BaseServer from '../BaseServer';
-import { Component, ComponentType } from './Component';
-import { ComponentDescription } from './ComponentDescription';
 import { LoggerInstance } from '../logger';
-export interface ComponentGroupOptions {
-    name?: string;
-    logger?: LoggerInstance;
+import { Component, ComponentOptions, ComponentType } from './Component';
+import { ComponentDescription } from './ComponentDescription';
+export interface ComponentGroupOptions extends ComponentOptions {
     children?: Component[];
 }
 export interface ComponentGroupDescription extends ComponentDescription {
@@ -18,8 +16,8 @@ export interface ComponentGroupDescription extends ComponentDescription {
  */
 export default abstract class ComponentGroup implements Component {
     options: ComponentGroupOptions;
-    logger: LoggerInstance;
     children: Component[];
+    logger: LoggerInstance;
     type: ComponentType.GROUP;
     constructor(options: ComponentGroupOptions);
     /**

@@ -9,11 +9,11 @@ export interface SimpleLoggerOptions extends winston.LoggerOptions {
 }
 export declare type LoggerInstance = winston.Logger;
 export default class SimpleLogger {
-    protected static instance: winston.Logger;
+    protected static instance: LoggerInstance;
     /**
      * The default transports thay will be enabled in the singleton.
      */
-    static DEFAULT_TRANSPORTS: winston.Logger['transports'];
+    static DEFAULT_TRANSPORTS: LoggerInstance['transports'];
     /**
      * Simple logger constructor is deprecated, use SimpleLogger.initialize() instead.
      *
@@ -25,11 +25,11 @@ export default class SimpleLogger {
      *
      * @param options The initialization options, for constructing if not available
      */
-    static getInstance(options?: SimpleLoggerOptions): winston.Logger;
+    static getInstance(options?: SimpleLoggerOptions): LoggerInstance;
     /**
      * Initialize a new logger instance using Winston factory.
      *
      * @param options The logger initialization options
      */
-    static initialize(options?: SimpleLoggerOptions): winston.Logger;
+    static initialize(options?: SimpleLoggerOptions): LoggerInstance;
 }

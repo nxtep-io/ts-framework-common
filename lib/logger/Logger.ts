@@ -1,5 +1,5 @@
-import * as winston from 'winston';
 import * as Git from "git-rev-sync";
+import * as winston from 'winston';
 import WinstonElasticsearch, { ElasticsearchTransportOptions } from 'winston-elasticsearch';
 import * as Transport from 'winston-transport';
 import SentryTransport, { SentryTransportOptions } from './Sentry';
@@ -8,10 +8,10 @@ import SentryTransport, { SentryTransportOptions } from './Sentry';
 const SOURCE_CODE_RELEASE = process.env.SOURCE_CODE_RELEASE
   ? process.env.SENTRY_RELEASE
   : (() => {
-      try {
-        return Git.long();
-      } catch (error) {}
-    })();
+    try {
+      return Git.long();
+    } catch (error) { }
+  })();
 
 export interface SimpleLoggerOptions extends winston.LoggerOptions {
   sentry?: SentryTransportOptions;
@@ -23,12 +23,12 @@ export interface SimpleLoggerOptions extends winston.LoggerOptions {
 export type LoggerInstance = winston.Logger;
 
 export default class SimpleLogger {
-  protected static instance: winston.Logger;
+  protected static instance: LoggerInstance;
 
   /**
    * The default transports thay will be enabled in the singleton.
    */
-  static DEFAULT_TRANSPORTS: winston.Logger['transports'] = [
+  static DEFAULT_TRANSPORTS: LoggerInstance['transports'] = [
     new winston.transports.Console({
       level: process.env.LOG_LEVEL || 'silly',
       format: winston.format.combine(
@@ -52,7 +52,7 @@ export default class SimpleLogger {
    *
    * @param options The initialization options, for constructing if not available
    */
-  public static getInstance(options: SimpleLoggerOptions = {}): winston.Logger {
+  public static getInstance(options: SimpleLoggerOptions = {}): LoggerInstance {
     if (!this.instance) {
       // TODO: This is a bad practice and should be depcreated
       // Unitialized logger should throw specific exception
@@ -66,7 +66,7 @@ export default class SimpleLogger {
    *
    * @param options The logger initialization options
    */
-  public static initialize(options: SimpleLoggerOptions = {}): winston.Logger {
+  public static initialize(options: SimpleLoggerOptions = {}): LoggerInstance {
     // Prepare default console transport
     const opt = {
       transports: options.transports || SimpleLogger.DEFAULT_TRANSPORTS,
@@ -89,7 +89,7 @@ export default class SimpleLogger {
 
     const logger = winston.createLogger(opt);;
 
-    if(!this.instance) {
+    if (!this.instance) {
       this.instance = logger;
     }
 

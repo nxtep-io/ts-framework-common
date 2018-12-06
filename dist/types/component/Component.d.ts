@@ -1,5 +1,5 @@
-import Logger from '../logger';
 import BaseServer from '../BaseServer';
+import { LoggerInstance } from '../logger';
 import { ComponentDescription } from './ComponentDescription';
 export declare enum ComponentType {
     MIDDLEWARE = "middleware",
@@ -10,10 +10,11 @@ export declare enum ComponentType {
 }
 export interface ComponentOptions {
     name?: string;
-    logger?: Logger;
+    logger?: LoggerInstance;
 }
 export interface Component {
     type: ComponentType;
+    logger: LoggerInstance;
     options: ComponentOptions;
     /**
      * Describes current component.

@@ -1,11 +1,9 @@
 import BaseServer from '../BaseServer';
-import { Component, ComponentType } from './Component';
-import { ComponentDescription } from './ComponentDescription';
 import { Logger, LoggerInstance } from '../logger';
+import { Component, ComponentOptions, ComponentType } from './Component';
+import { ComponentDescription } from './ComponentDescription';
 
-export interface ComponentGroupOptions {
-  name?: string;
-  logger?: LoggerInstance;
+export interface ComponentGroupOptions extends ComponentOptions {
   children?: Component[];
 }
 
@@ -20,9 +18,9 @@ export interface ComponentGroupDescription extends ComponentDescription {
  * A higher order component to handle a group of children.
  */
 export default abstract class ComponentGroup implements Component {
-  logger: LoggerInstance;
-  children: Component[];
-  type: ComponentType.GROUP;
+  public children: Component[];
+  public logger: LoggerInstance;
+  public type: ComponentType.GROUP;
 
   constructor(public options: ComponentGroupOptions) {
     this.logger = options.logger || Logger.getInstance();
@@ -36,7 +34,7 @@ export default abstract class ComponentGroup implements Component {
     const map = this.children
       .map((component: Component) => {
         const description = component.describe();
-        return { 
+        return {
           [component.constructor.name]: component,
           ...(description.context || {})
         };
