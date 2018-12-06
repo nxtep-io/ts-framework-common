@@ -54,6 +54,8 @@ export default class SimpleLogger {
    */
   public static getInstance(options: SimpleLoggerOptions = {}): winston.Logger {
     if (!this.instance) {
+      // TODO: This is a bad practice and should be depcreated
+      // Unitialized logger should throw specific exception
       this.instance = this.initialize(options);
     }
     return this.instance;
@@ -85,6 +87,12 @@ export default class SimpleLogger {
       opt.transports.push(new WinstonElasticsearch(options.elasticsearch));
     }
 
-    return winston.createLogger(opt);
+    const logger = winston.createLogger(opt);;
+
+    if(!this.instance) {
+      this.instance = logger;
+    }
+
+    return logger;
   }
 }
