@@ -2,13 +2,13 @@ import * as winston from 'winston';
 import { ElasticsearchTransportOptions } from 'winston-elasticsearch';
 import * as Transport from 'winston-transport';
 import { SentryTransportOptions } from './Sentry';
-export interface SimpleLoggerOptions extends winston.LoggerOptions {
+export interface LoggerOptions extends winston.LoggerOptions {
     sentry?: SentryTransportOptions;
     elasticsearch?: ElasticsearchTransportOptions;
     transports?: Transport[];
 }
 export declare type LoggerInstance = winston.Logger;
-export default class SimpleLogger {
+export default class Logger {
     protected static instance: LoggerInstance;
     /**
      * The default transports thay will be enabled in the singleton.
@@ -25,11 +25,11 @@ export default class SimpleLogger {
      *
      * @param options The initialization options, for constructing if not available
      */
-    static getInstance(options?: SimpleLoggerOptions): LoggerInstance;
+    static getInstance(options?: LoggerOptions): LoggerInstance;
     /**
      * Initialize a new logger instance using Winston factory.
      *
      * @param options The logger initialization options
      */
-    static initialize(options?: SimpleLoggerOptions): LoggerInstance;
+    static initialize(options?: LoggerOptions): LoggerInstance;
 }

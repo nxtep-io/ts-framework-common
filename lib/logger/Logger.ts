@@ -13,7 +13,7 @@ const SOURCE_CODE_RELEASE = process.env.SOURCE_CODE_RELEASE
     } catch (error) { }
   })();
 
-export interface SimpleLoggerOptions extends winston.LoggerOptions {
+export interface LoggerOptions extends winston.LoggerOptions {
   sentry?: SentryTransportOptions;
   elasticsearch?: ElasticsearchTransportOptions;
   transports?: Transport[];
@@ -22,7 +22,7 @@ export interface SimpleLoggerOptions extends winston.LoggerOptions {
 // Export the winston.Logger type so we don't need to install the winston types on dependants
 export type LoggerInstance = winston.Logger;
 
-export default class SimpleLogger {
+export default class Logger {
   protected static instance: LoggerInstance;
 
   /**
@@ -52,7 +52,7 @@ export default class SimpleLogger {
    *
    * @param options The initialization options, for constructing if not available
    */
-  public static getInstance(options: SimpleLoggerOptions = {}): LoggerInstance {
+  public static getInstance(options: LoggerOptions = {}): LoggerInstance {
     if (!this.instance) {
       // TODO: This is a bad practice and should be depcreated
       // Unitialized logger should throw specific exception
@@ -66,10 +66,10 @@ export default class SimpleLogger {
    *
    * @param options The logger initialization options
    */
-  public static initialize(options: SimpleLoggerOptions = {}): LoggerInstance {
+  public static initialize(options: LoggerOptions = {}): LoggerInstance {
     // Prepare default console transport
     const opt = {
-      transports: options.transports || SimpleLogger.DEFAULT_TRANSPORTS,
+      transports: options.transports || Logger.DEFAULT_TRANSPORTS,
     };
 
     // Add sentry if available
