@@ -1,9 +1,8 @@
 import * as Express from 'express';
-import { Component } from './component/Component';
 import ComponentGroup, { ComponentGroupOptions } from './component/ComponentGroup';
+import { LoggerInstance } from './logger';
 
 export interface BaseServerOptions extends ComponentGroupOptions {
-
 }
 
 export default abstract class BaseServer extends ComponentGroup {

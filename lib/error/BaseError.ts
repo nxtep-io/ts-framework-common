@@ -13,14 +13,24 @@ export class BaseErrorDetails {
   }
 }
 
+/**
+ * An enhanced error instance for the TS Framework.
+ * <br />
+ * Basic features:
+ * - Unique stack id using UUID v4
+ * - Serializers: toObject and toJSON
+ * - Better stack trace mapping
+ */
 export default class BaseError extends Error {
   stackId: string;
   details: BaseErrorDetails;
+  originalMessage: string;
 
   constructor(message, details: any = new BaseErrorDetails()) {
     const stackId = uuid.v4();
     super(`${message} (stackId: ${stackId})`);
     this.stackId = stackId;
+    this.originalMessage = message;
     this.name = this.constructor.name;
     this.details = details instanceof BaseErrorDetails ? details : new BaseErrorDetails(details);
 
@@ -31,6 +41,9 @@ export default class BaseError extends Error {
     }
   }
 
+  /**
+   * Generates POJO for this error instance.
+   */
   public toObject() {
     return {
       message: this.message,
@@ -40,7 +53,12 @@ export default class BaseError extends Error {
     };
   }
 
-  public toJSON(stringify = false): object | string {
+  /**
+   * Generates JSON for this error instance.
+   *
+   * @param stringify Flag to enable stringification
+   */
+  public toJSON(stringify = false): any {
     const obj = this.toObject();
     if (stringify) {
       return JSON.stringify(obj);

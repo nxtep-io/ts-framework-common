@@ -12,11 +12,13 @@
     "outDir": "./dist",
     "declaration": true,
     "removeComments": false,
+    "skipDefaultLibCheck": true ,
     "declarationDir": "dist/types",
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "typeRoots": [ "@types/" ]
   },
   "include": [
     "./lib/**/*"

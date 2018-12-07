@@ -1,17 +1,14 @@
-import Logger from './logger';
+import { LoggerInstance } from './logger';
 import BaseServer from './BaseServer';
 import { Component, ComponentOptions, ComponentType } from './component/Component';
 import { ComponentDescription } from './component';
 export interface ServiceOptions extends ComponentOptions {
-    name?: string;
-    logger?: Logger;
 }
 export interface ServiceDescription extends ComponentDescription {
-    name: string;
 }
 export default abstract class Service implements Component {
     options: ServiceOptions;
-    logger: Logger;
+    logger: LoggerInstance;
     type: ComponentType.SERVICE;
     constructor(options: ServiceOptions);
     describe(): ServiceDescription;

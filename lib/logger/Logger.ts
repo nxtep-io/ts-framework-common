@@ -1,56 +1,98 @@
+import * as Git from "git-rev-sync";
 import * as winston from 'winston';
-import * as Raven from 'raven';
-import * as SentryTransport from 'winston-raven-sentry';
+import WinstonElasticsearch, { ElasticsearchTransportOptions } from 'winston-elasticsearch';
+import * as Transport from 'winston-transport';
+import SentryTransport, { SentryTransportOptions } from './Sentry';
 
-export interface SentryTransportOptions extends Raven.ConstructorOptions {
-  dsn: string;
-  level?: string;
-  levelsMap?: any;
-  install?: boolean;
-  raven?: Raven.Client;
-}
+/* Generates Sentry release version based on Git repository, if available */
+const SOURCE_CODE_RELEASE = process.env.SOURCE_CODE_RELEASE
+  ? process.env.SENTRY_RELEASE
+  : (() => {
+    try {
+      return Git.long();
+    } catch (error) { }
+  })();
 
-export interface SimpleLoggerOptions extends winston.LoggerOptions {
+export interface LoggerOptions extends winston.LoggerOptions {
   sentry?: SentryTransportOptions;
-  transports?: winston.TransportInstance[];
+  elasticsearch?: ElasticsearchTransportOptions;
+  transports?: Transport[];
 }
 
-export default class SimpleLogger extends winston.Logger {
-  protected static instance: SimpleLogger;
+// Export the winston.Logger type so we don't need to install the winston types on dependants
+export type LoggerInstance = winston.Logger;
 
-  static DEFAULT_TRANSPORTS: winston.TransportInstance[] = [
-    new (winston.transports.Console)({
-      // TODO: Get from default configuration layer
+export default class Logger {
+  protected static instance: LoggerInstance;
+
+  /**
+   * The default transports thay will be enabled in the singleton.
+   */
+  static DEFAULT_TRANSPORTS: LoggerInstance['transports'] = [
+    new winston.transports.Console({
       level: process.env.LOG_LEVEL || 'silly',
-      colorize: true,
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple()
+      ),
     }),
   ];
 
-  public constructor(options: SimpleLoggerOptions = {}) {
+  /**
+   * Simple logger constructor is deprecated, use SimpleLogger.initialize() instead.
+   *
+   * @deprecated
+   */
+  private constructor() {
+    throw new Error('Simple logger constructor is deprecated in Winston 3, use Logger.initialize() instead');
+  }
+
+  /**
+   * Gets the singleton Logger instance, initializing it if needed.
+   *
+   * @param options The initialization options, for constructing if not available
+   */
+  public static getInstance(options: LoggerOptions = {}): LoggerInstance {
+    if (!this.instance) {
+      // TODO: This is a bad practice and should be depcreated
+      // Unitialized logger should throw specific exception
+      this.instance = this.initialize(options);
+    }
+    return this.instance;
+  }
+
+  /**
+   * Initialize a new logger instance using Winston factory.
+   *
+   * @param options The logger initialization options
+   */
+  public static initialize(options: LoggerOptions = {}): LoggerInstance {
     // Prepare default console transport
     const opt = {
-      transports: options.transports || SimpleLogger.DEFAULT_TRANSPORTS,
+      transports: options.transports || Logger.DEFAULT_TRANSPORTS,
     };
 
     // Add sentry if available
-    if (options.sentry || process.env.SENTRY_DNS) {
-      opt.transports.push(new SentryTransport(options.sentry || {
-        dsn: process.env.SENTRY_DNS,
+    if (options.sentry) {
+      opt.transports.push(new SentryTransport({
+        release: SOURCE_CODE_RELEASE,
+        level: options.level,
+        environment: process.env.NODE_ENV || 'development',
+        ...options.sentry,
       }));
     }
 
-    super(opt);
-  }
-
-  public static getInstance(options?: SimpleLoggerOptions): winston.LoggerInstance {
-    if (!this.instance || options !== undefined) {
-      const logger = new SimpleLogger(options);
-
-      if (!this.instance) {
-        this.instance = logger;
-      }
-      return logger;
+    // Add elasticsearch if available
+    if (options.elasticsearch) {
+      opt.transports.push(new WinstonElasticsearch(options.elasticsearch));
     }
-    return this.instance;
+
+    const logger = winston.createLogger(opt);;
+
+    if (!this.instance) {
+      this.instance = logger;
+    }
+
+    return logger;
   }
 }

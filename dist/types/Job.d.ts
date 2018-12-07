@@ -1,16 +1,14 @@
 import BaseServer from './BaseServer';
 import { Component, ComponentOptions, ComponentType } from './component/Component';
-import { Logger } from './logger';
+import { LoggerInstance } from './logger';
 import { ComponentDescription } from './component';
 export interface JobOptions extends ComponentOptions {
-    name?: string;
 }
 export interface JobDescription extends ComponentDescription {
-    name?: string;
 }
 export default abstract class Job implements Component {
     options: JobOptions;
-    logger: Logger;
+    logger: LoggerInstance;
     type: ComponentType.JOB;
     constructor(options: JobOptions);
     onInit(server: BaseServer): Promise<void>;
