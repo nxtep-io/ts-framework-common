@@ -3,6 +3,7 @@ import * as winston from 'winston';
 import WinstonElasticsearch, { ElasticsearchTransportOptions } from 'winston-elasticsearch';
 import * as Transport from 'winston-transport';
 import SentryTransport, { SentryTransportOptions } from './Sentry';
+import { enumerateErrorFormat, lineFormat } from "./utils";
 
 /* Generates Sentry release version based on Git repository, if available */
 const SOURCE_CODE_RELEASE = process.env.SOURCE_CODE_RELEASE
@@ -32,8 +33,10 @@ export default class Logger {
     new winston.transports.Console({
       level: process.env.LOG_LEVEL || 'silly',
       format: winston.format.combine(
+        enumerateErrorFormat(),
+        winston.format.timestamp(),
         winston.format.colorize(),
-        winston.format.simple()
+        lineFormat(),
       ),
     }),
   ];
@@ -87,7 +90,8 @@ export default class Logger {
       opt.transports.push(new WinstonElasticsearch(options.elasticsearch));
     }
 
-    const logger = winston.createLogger(opt);;
+    // Construct new Winston logger instance with enhanced error handling
+    const logger = winston.createLogger({ format: winston.format.combine(enumerateErrorFormat()), ...opt });;
 
     if (!this.instance) {
       this.instance = logger;

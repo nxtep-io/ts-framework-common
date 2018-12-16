@@ -1,6 +1,5 @@
 import * as Express from 'express';
 import ComponentGroup, { ComponentGroupOptions } from './component/ComponentGroup';
-import { LoggerInstance } from './logger';
 
 export interface BaseServerOptions extends ComponentGroupOptions {
 }
