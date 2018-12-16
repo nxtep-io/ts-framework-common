@@ -11,13 +11,6 @@ const winstonLevelToSentryLevel = {
   error: 'error'
 };
 
-/**
- * @param {Error} error
- */
-const errorHandler = (error) => {
-  console.log(error);
-};
-
 export interface SentryTransportOptions extends Sentry.NodeOptions {
   dsn: string;
   patchGlobal?: false,
@@ -58,7 +51,10 @@ export default class SentryTransport extends Transport {
    * @param {Function} done
    */
   async log(info, done) {
-    if (this.silent) return done(null, true);
+    if (this.silent) {
+      return done(null, true);
+    }
+    
     // tslint:disable-next-line:prefer-const
     let { message, level, ...extra } = info;
 
