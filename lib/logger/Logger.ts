@@ -34,7 +34,6 @@ export default class Logger {
       level: process.env.LOG_LEVEL || 'silly',
       format: winston.format.combine(
         enumerateErrorFormat(),
-        winston.format.timestamp(),
         winston.format.colorize(),
         lineFormat(),
       ),
