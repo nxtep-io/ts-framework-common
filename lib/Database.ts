@@ -64,6 +64,10 @@ export default abstract class Database implements Component {
    */
   public abstract entities(): { [name: string]: any };
 
+  /**
+   * Executes a raw query in the database.
+   */
+  public abstract query(rawQuery: string, ...args): Promise<any>;
 
   /**
    * Mounts the database, registering the models and query builders.
