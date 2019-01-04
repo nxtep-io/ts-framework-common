@@ -53,6 +53,14 @@ export default abstract class Database implements Component {
      */
     abstract query(rawQuery: string, ...args: any[]): Promise<any>;
     /**
+     * Drops the current database schema.
+     */
+    drop(...args: any[]): Promise<any>;
+    /**
+     * Migrates the current database schema.
+     */
+    migrate(...args: any[]): Promise<any>;
+    /**
      * Mounts the database, registering the models and query builders.
      *
      * @param server The base server instance.

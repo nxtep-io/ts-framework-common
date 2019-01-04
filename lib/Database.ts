@@ -2,6 +2,7 @@ import BaseServer from './BaseServer';
 import { ComponentDescription } from './component';
 import { Component, ComponentOptions, ComponentType } from './component/Component';
 import Logger, { LoggerInstance } from './logger';
+import { BaseError } from './error';
 
 export interface DatabaseOptions extends ComponentOptions {
 }
@@ -68,6 +69,20 @@ export default abstract class Database implements Component {
    * Executes a raw query in the database.
    */
   public abstract query(rawQuery: string, ...args): Promise<any>;
+
+  /**
+   * Drops the current database schema.
+   */
+  public drop(...args): Promise<any> {
+    throw new BaseError('Database has no support for schema drop');
+  }
+
+  /**
+   * Migrates the current database schema.
+   */
+  public migrate(...args): Promise<any> {
+    throw new BaseError('Database has no support for schema migration');
+  }
 
   /**
    * Mounts the database, registering the models and query builders.
