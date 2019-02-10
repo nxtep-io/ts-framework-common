@@ -65,7 +65,8 @@ export default class SentryTransport extends Transport {
     };
 
     if (info instanceof BaseError) {
-      event.message = info.originalMessage;
+      // Strip stack id information from message for better grouping in Sentry
+      event.message = info.originalMessage.replace(/\(stackId:.+?\)/g, '');
       event.tags = event.tags || {};
       event.tags.stackId = info.stackId;
       event.extra.stack = info.stack;
@@ -73,7 +74,7 @@ export default class SentryTransport extends Transport {
     } else if (info instanceof Error) {
       eventId = Sentry.captureException(info);
     } else {
-      event.message = message;
+      event.message = (message || '').replace(/\(stackId:.+?\)/g, '');;
       eventId = Sentry.captureEvent(event)
     }
 
