@@ -1,6 +1,7 @@
 import * as Sentry from '@sentry/node';
 import * as Transport from 'winston-transport';
 import { BaseError } from '../error';
+import { LogLevel } from '@sentry/core';
 
 const winstonLevelToSentryLevel = {
   silly: 'debug',
@@ -13,7 +14,7 @@ const winstonLevelToSentryLevel = {
 
 export interface SentryTransportOptions extends Sentry.NodeOptions {
   dsn: string;
-  patchGlobal?: false,
+  patchGlobal?: boolean,
   level?: string;
   install?: boolean;
   client?: Sentry.NodeClient;
@@ -38,10 +39,7 @@ export default class SentryTransport extends Transport {
       ...options,
     };
 
-    Sentry.init({
-      logLevel: 2,
-      ...this.options
-    });
+    Sentry.init({ ...this.options });
   }
 
   /**

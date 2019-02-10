@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/node';
 import * as Transport from 'winston-transport';
 export interface SentryTransportOptions extends Sentry.NodeOptions {
     dsn: string;
-    patchGlobal?: false;
+    patchGlobal?: boolean;
     level?: string;
     install?: boolean;
     client?: Sentry.NodeClient;
