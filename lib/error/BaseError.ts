@@ -1,5 +1,4 @@
 import * as uuid from 'uuid';
-import * as cleanStack from 'clean-stack';
 
 export class BaseErrorDetails {
   [key: string]: any;
@@ -45,11 +44,19 @@ export default class BaseError extends Error {
    * Generates POJO for this error instance.
    */
   public toObject() {
+    let cleanStack;
+    try {
+      cleanStack = require('clean-stack')(this.stack);
+    } catch (exception) {
+      console.warn('Could not clean stack trace, dependency not available: "clean-stack"', exception);
+      cleanStack = this.stack
+    }
+
     return {
       message: this.message,
       stackId: this.stackId,
       details: this.details,
-      stack: cleanStack(this.stack),
+      stack: cleanStack,
     };
   }
 
