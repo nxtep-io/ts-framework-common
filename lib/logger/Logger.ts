@@ -1,18 +1,8 @@
-import * as Git from "git-rev-sync";
 import * as winston from 'winston';
 import WinstonElasticsearch, { ElasticsearchTransportOptions } from 'winston-elasticsearch';
 import * as Transport from 'winston-transport';
 import SentryTransport, { SentryTransportOptions } from './Sentry';
 import { enumerateErrorFormat, lineFormat } from "./utils";
-
-/* Generates Sentry release version based on Git repository, if available */
-const SOURCE_CODE_RELEASE = process.env.SOURCE_CODE_RELEASE
-  ? process.env.SENTRY_RELEASE
-  : (() => {
-    try {
-      return Git.long();
-    } catch (error) { }
-  })();
 
 export interface LoggerOptions extends winston.LoggerOptions {
   sentry?: SentryTransportOptions;
@@ -76,6 +66,19 @@ export default class Logger {
 
     // Add sentry if available
     if (options.sentry) {
+      /* Generates Sentry release version based on Git repository, if available */
+      const SOURCE_CODE_RELEASE = process.env.SOURCE_CODE_RELEASE
+        ? process.env.SENTRY_RELEASE
+        : (() => {
+          try {
+            const Git = require("git-rev-sync");
+            return Git.long();
+          } catch (error) {
+            console.warn('Could not get git revision hash for sentry logger', error);
+          }
+        })();
+
+      /* Add sentry transport to logger */
       opt.transports.push(new SentryTransport({
         release: SOURCE_CODE_RELEASE,
         level: options.level,

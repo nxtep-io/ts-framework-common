@@ -115,7 +115,6 @@
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-is-external tsd-is-not-exported"><a href="globals.html#source_code_release" class="tsd-kind-icon">SOURCE_<wbr>CODE_<wbr>RELEASE</a></li>
 								<li class="tsd-kind-variable tsd-is-external"><a href="globals.html#enumerateerrorformat" class="tsd-kind-icon">enumerate<wbr>Error<wbr>Format</a></li>
 								<li class="tsd-kind-variable tsd-is-external"><a href="globals.html#lineformat" class="tsd-kind-icon">line<wbr>Format</a></li>
 							</ul>
@@ -137,30 +136,20 @@
 					<div class="tsd-signature tsd-kind-icon">Logger<wbr>Instance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Logger</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in logger/logger.ts:24</li>
+							<li>Defined in logger/logger.ts:14</li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-external tsd-is-not-exported">
-					<a name="source_code_release" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> SOURCE_<wbr>CODE_<wbr>RELEASE</h3>
-					<div class="tsd-signature tsd-kind-icon">SOURCE_<wbr>CODE_<wbr>RELEASE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;process.env.SOURCE_CODE_RELEASE? process.env.SENTRY_RELEASE: (() &#x3D;&gt; {try {return Git.long();} catch (error) { }})()</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in logger/logger.ts:9</li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-external">
 					<a name="enumerateerrorformat" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> enumerate<wbr>Error<wbr>Format</h3>
 					<div class="tsd-signature tsd-kind-icon">enumerate<wbr>Error<wbr>Format<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> =&nbsp;format((info: any) &#x3D;&gt; {if (info.message instanceof BaseError) {return {message: info.message.message,stack: info.message.stack,...info.message};}if (info.message instanceof Error) {return {message: info.message.message,stack: info.message.stack,...info.message};}if (info instanceof BaseError) {return {message: info.message,stack: info.stack,...info,};}if (info instanceof Error) {return {message: info.message,stack: info.stack,...info,};}return info;})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/a2e3c45/lib/logger/utils.ts#L26">logger/utils.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/f0e0aa6/lib/logger/utils.ts#L26">logger/utils.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -191,7 +180,7 @@
 					<div class="tsd-signature tsd-kind-icon">line<wbr>Format<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> =&nbsp;format((info: any) &#x3D;&gt; {const stringifiedRest &#x3D; jsonStringify({...info,level: undefined,message: undefined,splat: undefined}, null, 2);const padding &#x3D; info.padding &amp;&amp; info.padding[info.level] || &#x27;&#x27;;if (stringifiedRest !&#x3D;&#x3D; &#x27;{}&#x27;) {info[MESSAGE] &#x3D; &#x60;${info.level}:${padding} ${info.message} ${stringifiedRest}&#x60;;} else {info[MESSAGE] &#x3D; &#x60;${info.level}:${padding} ${info.message}&#x60;;}return info;})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/a2e3c45/lib/logger/utils.ts#L6">logger/utils.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/f0e0aa6/lib/logger/utils.ts#L6">logger/utils.ts:6</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -225,7 +214,7 @@
 					<div class="tsd-signature tsd-kind-icon">winston<wbr>Level<wbr>ToSentry<wbr>Level<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/a2e3c45/lib/logger/Sentry.ts#L6">logger/Sentry.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/f0e0aa6/lib/logger/Sentry.ts#L6">logger/Sentry.ts:6</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external tsd-is-not-exported">
@@ -234,7 +223,7 @@
 						<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;debug&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/a2e3c45/lib/logger/Sentry.ts#L10">logger/Sentry.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/f0e0aa6/lib/logger/Sentry.ts#L10">logger/Sentry.ts:10</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -244,7 +233,7 @@
 						<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;error&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/a2e3c45/lib/logger/Sentry.ts#L12">logger/Sentry.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/f0e0aa6/lib/logger/Sentry.ts#L12">logger/Sentry.ts:12</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -254,7 +243,7 @@
 						<div class="tsd-signature tsd-kind-icon">info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;info&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/a2e3c45/lib/logger/Sentry.ts#L9">logger/Sentry.ts:9</a></li>
+								<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/f0e0aa6/lib/logger/Sentry.ts#L9">logger/Sentry.ts:9</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -264,7 +253,7 @@
 						<div class="tsd-signature tsd-kind-icon">silly<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;debug&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/a2e3c45/lib/logger/Sentry.ts#L7">logger/Sentry.ts:7</a></li>
+								<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/f0e0aa6/lib/logger/Sentry.ts#L7">logger/Sentry.ts:7</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -274,7 +263,7 @@
 						<div class="tsd-signature tsd-kind-icon">verbose<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;debug&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/a2e3c45/lib/logger/Sentry.ts#L8">logger/Sentry.ts:8</a></li>
+								<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/f0e0aa6/lib/logger/Sentry.ts#L8">logger/Sentry.ts:8</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -284,7 +273,7 @@
 						<div class="tsd-signature tsd-kind-icon">warn<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;warning&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/a2e3c45/lib/logger/Sentry.ts#L11">logger/Sentry.ts:11</a></li>
+								<li>Defined in <a href="https://github.com/nxtep-io/ts-framework-common/blob/f0e0aa6/lib/logger/Sentry.ts#L11">logger/Sentry.ts:11</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -375,9 +364,6 @@
 					</li>
 					<li class=" tsd-kind-type-alias tsd-is-external">
 						<a href="globals.html#loggerinstance" class="tsd-kind-icon">Logger<wbr>Instance</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-is-external tsd-is-not-exported">
-						<a href="globals.html#source_code_release" class="tsd-kind-icon">SOURCE_<wbr>CODE_<wbr>RELEASE</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-external">
 						<a href="globals.html#enumerateerrorformat" class="tsd-kind-icon">enumerate<wbr>Error<wbr>Format</a>
