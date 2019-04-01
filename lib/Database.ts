@@ -2,7 +2,7 @@ import BaseServer from './BaseServer';
 import { ComponentDescription } from './component';
 import { Component, ComponentOptions, ComponentType } from './component/Component';
 import Logger, { LoggerInstance } from './logger';
-import { BaseError } from './error';
+import { BaseError } from 'nano-errors';
 
 export interface DatabaseOptions extends ComponentOptions {
 }

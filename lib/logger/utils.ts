@@ -1,7 +1,7 @@
 import jsonStringify from 'fast-safe-stringify';
 import { MESSAGE } from 'triple-beam';
 import { format } from 'winston';
-import { BaseError } from '../error';
+import { BaseError } from 'nano-errors';
 
 export const lineFormat = format((info: any) => {
   const stringifiedRest = jsonStringify({

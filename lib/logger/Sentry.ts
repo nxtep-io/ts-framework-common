@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/node';
 import * as Transport from 'winston-transport';
-import { BaseError } from '../error';
 import { LogLevel } from '@sentry/core';
+import { BaseError } from 'nano-errors';
 
 const winstonLevelToSentryLevel = {
   silly: 'debug',
