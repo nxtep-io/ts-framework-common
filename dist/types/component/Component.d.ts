@@ -1,6 +1,6 @@
 import BaseServer from '../BaseServer';
-import { LoggerInstance } from '../logger';
 import { ComponentDescription } from './ComponentDescription';
+import { LoggerInstance } from 'nano-errors';
 export declare enum ComponentType {
     MIDDLEWARE = "middleware",
     DATABASE = "database",

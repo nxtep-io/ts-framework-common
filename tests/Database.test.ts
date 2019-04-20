@@ -1,6 +1,9 @@
-import { Database, DatabaseDescription, DatabaseOptions } from "../lib";
+import { Logger } from "nano-errors";
+import { Database, DatabaseOptions } from "../lib";
 
 describe("lib.Database", () => {
+  Logger.initialize();
+
   class TestDatabase extends Database {
     state = {
       mounted: 0,

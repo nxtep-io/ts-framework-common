@@ -1,6 +1,9 @@
+import { Logger } from "nano-errors";
 import { Job } from "../lib";
 
 describe("lib.Job", () => {
+  Logger.initialize();
+
   class TestJob extends Job {
     state = {
       mounted: 0,

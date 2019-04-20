@@ -1,6 +1,9 @@
-import { BaseServer, BaseServerOptions, ComponentGroup, ComponentType, Component } from "../lib";
+import { Logger } from "nano-errors";
+import { Component, ComponentGroup, ComponentType } from "../lib";
 
 describe("lib.component.ComponentGroup", () => {
+  Logger.initialize();
+
   class TestComponent implements Component {
     type = ComponentType.SERVICE;
     options = { name: "Test" };
