@@ -17,7 +17,7 @@ export interface ComponentOptions {
 
 export interface Component {
   type: ComponentType;
-  logger: LoggerInstance;
+  logger?: LoggerInstance;
   options: ComponentOptions;
 
   /**

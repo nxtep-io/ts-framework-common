@@ -51,13 +51,13 @@
     "prettier": "^1.14.0",
     "rimraf": "^2.6.2",
     "sinon": "^5.0.3",
-    "ts-jest": "^24.0.2",
-    "ts-node": "^8.1.0",
-    "tslint": "^5.16.0",
-    "tslint-config-airbnb": "^5.11.1",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-no-circular-imports": "^0.6.2",
-    "typedoc": "^0.14.2",
-    "typescript": "^3.4.5"
+    "ts-jest": "^23.1.2",
+    "ts-node": "^7.0.0",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.9.2",
+    "tslint-config-prettier": "^1.14.0",
+    "tslint-no-circular-imports": "^0.5.0",
+    "typedoc": "^0.14.0",
+    "typescript": "^3.2.2"
   }
 }

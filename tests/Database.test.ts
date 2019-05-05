@@ -32,6 +32,9 @@ describe("lib.Database", () => {
     async disconnect(): Promise<void> {
       this.state.disconnected += 1;
     }
+    async query(): Promise<any> {
+      return undefined;
+    }
   }
 
   it("should instantiate a TestService properly", async () => {
