@@ -1,6 +1,6 @@
 import BaseServer from '../BaseServer';
-import { LoggerInstance } from '../logger';
 import { ComponentDescription } from './ComponentDescription';
+import { LoggerInstance } from 'nano-errors';
 
 export enum ComponentType {
   MIDDLEWARE = 'middleware',
@@ -17,7 +17,7 @@ export interface ComponentOptions {
 
 export interface Component {
   type: ComponentType;
-  logger: LoggerInstance;
+  logger?: LoggerInstance;
   options: ComponentOptions;
 
   /**

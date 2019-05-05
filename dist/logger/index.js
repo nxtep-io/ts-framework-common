@@ -1,8 +1,0 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const LoggerUtils = require("./utils");
-exports.LoggerUtils = LoggerUtils;
-var logger_1 = require("./logger");
-exports.default = logger_1.default;
-exports.Logger = logger_1.default;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9saWIvbG9nZ2VyL2luZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsdUNBQXVDO0FBRTlCLGtDQUFXO0FBQ3BCLG1DQUFnRztBQUF2RiwyQkFBQSxPQUFPLENBQVc7QUFBRSwwQkFBQSxPQUFPLENBQVUiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgKiBhcyBMb2dnZXJVdGlscyBmcm9tICcuL3V0aWxzJztcblxuZXhwb3J0IHsgTG9nZ2VyVXRpbHMgfTtcbmV4cG9ydCB7IGRlZmF1bHQgYXMgZGVmYXVsdCwgZGVmYXVsdCBhcyBMb2dnZXIsIExvZ2dlckluc3RhbmNlLCBMb2dnZXJPcHRpb25zIH0gZnJvbSAnLi9sb2dnZXInOyJdfQ==

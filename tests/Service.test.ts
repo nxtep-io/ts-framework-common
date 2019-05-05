@@ -1,6 +1,9 @@
+import { Logger } from "nano-errors";
 import { Service, ServiceDescription } from "../lib";
 
 describe("lib.Service", () => {
+  Logger.initialize();
+
   class TestService extends Service {
     public describe(): ServiceDescription {
       return {

@@ -1,8 +1,12 @@
-import { BaseServer, BaseServerOptions, ComponentGroup, ComponentType, Component } from "../lib";
+import { Logger } from "nano-errors";
+import { Component, ComponentGroup, ComponentType } from "../lib";
 
 describe("lib.component.ComponentGroup", () => {
+  Logger.initialize();
+
   class TestComponent implements Component {
     type = ComponentType.SERVICE;
+    logger = Logger.initialize();
     options = { name: "Test" };
     state = {
       mounted: 0,
@@ -32,7 +36,9 @@ describe("lib.component.ComponentGroup", () => {
     }
   }
 
-  class TestComponentGroup extends ComponentGroup {}
+  class TestComponentGroup extends ComponentGroup {
+    logger = Logger.initialize();
+  }
 
   it("should instantiate a ComponentGroup properly", async () => {
     const server = new TestComponentGroup({ name: "TestGroup" });

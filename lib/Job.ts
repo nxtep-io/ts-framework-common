@@ -1,7 +1,7 @@
 import BaseServer from './BaseServer';
 import { Component, ComponentOptions, ComponentType } from './component/Component';
-import { Logger, LoggerInstance } from './logger';
 import { ComponentDescription } from './component';
+import { LoggerInstance, Logger } from 'nano-errors';
 
 export interface JobOptions extends ComponentOptions {
 }

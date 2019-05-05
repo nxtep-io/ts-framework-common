@@ -1,8 +1,7 @@
-export * from './error';
-export * from './logger';
+export * from 'nano-errors';
+export { BaseServerOptions, default as BaseServer } from './BaseServer';
 export * from './component';
+export { DatabaseDescription, DatabaseOptions, default as Database } from './Database';
+export { default as Job, JobDescription, JobOptions } from './Job';
+export { default as Service, ServiceDescription, ServiceOptions } from './Service';
 
-export { default as BaseServer, BaseServerOptions } from './BaseServer';
-export { default as Service, ServiceOptions, ServiceDescription } from './Service';
-export { default as Database, DatabaseOptions, DatabaseDescription } from './Database';
-export { default as Job, JobOptions, JobDescription } from './Job';

@@ -1,6 +1,9 @@
 import { BaseServer, BaseServerOptions } from "../lib";
+import { Logger } from "nano-errors";
 
 describe("lib.server.BaseServer", () => {
+  Logger.initialize();
+
   class TestServer extends BaseServer {
     async onReady(): Promise<void> {}
 

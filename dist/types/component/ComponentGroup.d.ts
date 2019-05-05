@@ -1,5 +1,5 @@
+import { LoggerInstance } from 'nano-errors';
 import BaseServer from '../BaseServer';
-import { LoggerInstance } from '../logger';
 import { Component, ComponentOptions, ComponentType } from './Component';
 import { ComponentDescription } from './ComponentDescription';
 export interface ComponentGroupOptions extends ComponentOptions {
