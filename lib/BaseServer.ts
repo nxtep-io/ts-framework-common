@@ -4,7 +4,7 @@ import ComponentGroup, { ComponentGroupOptions } from './component/ComponentGrou
 export interface BaseServerOptions extends ComponentGroupOptions {
 }
 
-export default abstract class BaseServer extends ComponentGroup {
+export abstract class BaseServer extends ComponentGroup {
   app: Express.Application;
 
   constructor(public options: BaseServerOptions) {

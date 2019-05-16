@@ -7,28 +7,6 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "start (ts-node/sentry)",
-      "cwd": "${workspaceRoot}",
-      "runtimeExecutable": "node",
-      "runtimeArgs": [
-        "-r",
-        "ts-node/register",
-      ],
-      "args": [
-        "${workspaceFolder}/examples/sentry.ts"
-      ],
-      "env": {
-        "SENTRY_DSN": "https://197d43d1b21d4b0a8cc3fb729d2468b7@sentry.btcore.app/4",
-        "NODE_ENV": "development",
-        "PORT": "3000"
-      },
-      "sourceMaps": true,
-      "internalConsoleOptions": "openOnFirstSessionStart",
-      "console": "integratedTerminal"
-    },
-    {
-      "type": "node",
-      "request": "launch",
       "name": "Debug Tests",
       "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
       "cwd": "${workspaceRoot}",

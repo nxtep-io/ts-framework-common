@@ -2,7 +2,7 @@ import * as Express from 'express';
 import ComponentGroup, { ComponentGroupOptions } from './component/ComponentGroup';
 export interface BaseServerOptions extends ComponentGroupOptions {
 }
-export default abstract class BaseServer extends ComponentGroup {
+export declare abstract class BaseServer extends ComponentGroup {
     options: BaseServerOptions;
     app: Express.Application;
     constructor(options: BaseServerOptions);
