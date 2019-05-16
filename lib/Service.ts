@@ -1,5 +1,5 @@
 import { Logger, LoggerInstance } from 'nano-errors';
-import BaseServer from './BaseServer';
+import { BaseServer } from './BaseServer';
 import { ComponentDescription } from './component';
 import { Component, ComponentOptions, ComponentType } from './component/Component';
 
@@ -9,7 +9,7 @@ export interface ServiceOptions extends ComponentOptions {
 export interface ServiceDescription extends ComponentDescription {
 }
 
-export default abstract class Service implements Component {
+export abstract class Service implements Component {
   logger: LoggerInstance;
   type: ComponentType.SERVICE;
 

@@ -1,12 +1,12 @@
-import BaseServer from './BaseServer';
-import { Component, ComponentOptions, ComponentType } from './component/Component';
-import { ComponentDescription } from './component';
 import { LoggerInstance } from 'nano-errors';
+import { BaseServer } from './BaseServer';
+import { ComponentDescription } from './component';
+import { Component, ComponentOptions, ComponentType } from './component/Component';
 export interface JobOptions extends ComponentOptions {
 }
 export interface JobDescription extends ComponentDescription {
 }
-export default abstract class Job implements Component {
+export declare abstract class Job implements Component {
     options: JobOptions;
     logger: LoggerInstance;
     type: ComponentType.JOB;

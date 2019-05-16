@@ -1,5 +1,5 @@
 import { BaseError, Logger, LoggerInstance } from 'nano-errors';
-import BaseServer from './BaseServer';
+import { BaseServer } from './BaseServer';
 import { ComponentDescription } from './component';
 import { Component, ComponentOptions, ComponentType } from './component/Component';
 
@@ -10,7 +10,7 @@ export interface DatabaseDescription extends ComponentDescription {
   status: 'connected' | 'disconnected';
 }
 
-export default abstract class Database implements Component {
+export abstract class Database implements Component {
   logger: LoggerInstance;
   type: ComponentType.DATABASE;
 
