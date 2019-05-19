@@ -1,6 +1,6 @@
 {
   "name": "ts-framework-common",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "A minimalistic web framework for TS",
   "author": "Luis Brito <luis@nxtep.io>",
   "license": "MIT",
@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@types/express": "^4.16.0",
-    "nano-errors": "nxtep-io/nano-errors#1.1.0"
+    "nano-errors": "nxtep-io/nano-errors#1.1.1"
   },
   "devDependencies": {
     "@types/jest": "^23.3.1",
