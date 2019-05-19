@@ -2945,9 +2945,9 @@ nan@^2.9.2:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
 
-nano-errors@nxtep-io/nano-errors#1.1.0:
-  version "1.1.0"
-  resolved "https://codeload.github.com/nxtep-io/nano-errors/tar.gz/6aa809b91f3f399bc65b579fad9a8e312db71f0e"
+nano-errors@nxtep-io/nano-errors#1.1.1:
+  version "1.1.1"
+  resolved "https://codeload.github.com/nxtep-io/nano-errors/tar.gz/9857dc9d2fa398260507de13d57c872774929821"
   dependencies:
     "@sentry/integrations" "^5.2.0"
     "@sentry/node" "5.2.0"
