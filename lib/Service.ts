@@ -26,7 +26,7 @@ export abstract class Service implements Component {
 
   public abstract onUnmount(server: BaseServer): void;
 
-  public abstract async onInit(server: BaseServer): Promise<void>;
+  public abstract onInit(server: BaseServer): Promise<void>;
 
-  public abstract async onReady(server: BaseServer): Promise<void>;
+  public abstract onReady(server: BaseServer): Promise<void>;
 }

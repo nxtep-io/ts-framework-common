@@ -39,5 +39,5 @@ export abstract class Job implements Component {
    * 
    * @param server The server instance
    */
-  public abstract async run(server: BaseServer): Promise<void>;
+  public abstract run(server: BaseServer): Promise<void>;
 }
